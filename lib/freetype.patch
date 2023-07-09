@@ -1,0 +1,29 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 554b580e9..a0930c1ce 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -121,6 +121,7 @@ if (NOT CMAKE_VERSION VERSION_LESS 3.3)
+   cmake_policy(SET CMP0057 NEW)
+ endif ()
+ 
++include(${LIB_DIR}/setjmp/setjmp.cmake)
+ include(CheckIncludeFile)
+ include(CMakeDependentOption)
+ 
+@@ -553,6 +554,7 @@ if (BROTLIDEC_FOUND)
+   list(APPEND PKGCONFIG_REQUIRES_PRIVATE "libbrotlidec")
+ endif ()
+ 
++target_link_libraries(freetype PRIVATE setjmp)
+ 
+ # Installation
+ include(GNUInstallDirs)
+@@ -632,7 +634,7 @@ if (NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL)
+     COMPATIBILITY SameMajorVersion)
+ 
+   install(
+-    TARGETS freetype freetype-interface
++    TARGETS freetype setjmp freetype-interface
+       EXPORT freetype-targets
+       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+       ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
